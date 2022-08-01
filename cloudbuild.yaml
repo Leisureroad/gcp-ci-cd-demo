@@ -22,6 +22,5 @@ steps:
     - 
       gcloud beta deploy releases create demo-$TAG_NAME
       --delivery-pipeline=gcp-clouddeploy-demo
-      --region=us-central1 
-      --annotations=commitId=v1
+      --region=us-central1
       --images=hello-world=gcr.io/${PROJECT_ID}/hello-world:$TAG_NAME
