@@ -3,6 +3,6 @@ import '../styles/HelloWorld.css';
 
 export const HelloWorld = () => (
 	<div>
-		<h3>Hello World!</h3>
+		<h3>Hello DevRel!</h3>
 	</div>
 );
