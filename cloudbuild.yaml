@@ -1,0 +1,27 @@
+tags:
+  - gcp-ci-cd-demo
+substitutions:
+  _PROJECT_ID: ${PROJECT_ID}
+
+steps:
+- name: gcr.io/k8s-skaffold/skaffold
+  id: "skaffold-build"
+  args:
+    - skaffold
+    - build
+    - '--interactive=false'
+    - '--file-output=artifacts.json'
+    - '--tag=$TAG_NAME'
+    - '--default-repo=gcr.io/$_PROJECT_ID'
+
+- name: gcr.io/google.com/cloudsdktool/cloud-sdk
+  id: "cloud-deploy"
+  entrypoint: bash
+  args:
+    - '-c'
+    - 
+      gcloud beta deploy releases create demo-$TAG_NAME
+      --delivery-pipeline=gcp-clouddeploy-demo
+      --region=us-central1 
+      --annotations=commitId=v1
+      --images=hello-world=gcr.io/${PROJECT_ID}/hello-world:$TAG_NAME
